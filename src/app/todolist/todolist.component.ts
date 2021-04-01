@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TodoItem } from '../interfaces/todo-item';
 import { TodoListService } from '../services/todo-list.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todolist',
@@ -20,9 +22,11 @@ import { TodoListService } from '../services/todo-list.service';
 })
 export class TodolistComponent implements OnInit {
 
+
   todoList!: TodoItem[];
 
-  constructor(private todoListService: TodoListService) { }
+  constructor(private todoListService: TodoListService) {
+  }
 
   ngOnInit(): void {
     this.todoList = this.todoListService.getTodoList();
@@ -30,7 +34,7 @@ export class TodolistComponent implements OnInit {
 
   //All new added tasks have not completed status.
   addItem(value: string) {
-    this.todoListService.addItem({id: Date.now(), name: value, status: false });
+    this.todoListService.addItem({ id: Date.now(), name: value, status: false });
   }
 
   removeItem(item: TodoItem) {
