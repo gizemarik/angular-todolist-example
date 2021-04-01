@@ -17,3 +17,4 @@ For input json data, json-server should be kept running :
 
 ### `json-server --watch db.json`
 
+![alt text](https://github.com/[gizemarik]/[angular-todolist-example]/blob/[master]/ss.png?raw=true)
