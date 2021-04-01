@@ -25,25 +25,16 @@ export class TodoItemComponent implements OnInit {
   item!: TodoItem;
 
   @Output() remove: EventEmitter<TodoItem> = new EventEmitter();
-  @Output() update: EventEmitter<any> = new EventEmitter();
+  @Output() update: EventEmitter<TodoItem> = new EventEmitter();
 
   constructor(private todoListService: TodoListService) { }
 
   ngOnInit(): void {
   }
 
-  completeItem(): void {
-    this.update.emit({
-      item: this.item
-    });
-  }
 
   submitItem(): void {
-    this.todoListService.updateTask(this.item).subscribe(() => {
-      console.log('submit subscribtion')
-    }, (err: any) => {
-      console.log(err)
-    })
+    this.update.emit(this.item);
   }
 
   removeItem() {

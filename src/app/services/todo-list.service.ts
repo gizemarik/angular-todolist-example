@@ -18,33 +18,31 @@ export class TodoListService {
 
   constructor(private storageService: StorageService, private httpClient: HttpClient) {
     this.getList()
-    .subscribe(data => this.todoList = data);
+      .subscribe(data => this.todoList = data);
   }
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-  }  
+  }
 
   getList(): Observable<TodoItem[]> {
     return this.httpClient.get<TodoItem[]>(this.URL);
   }
 
   addTask(item: TodoItem): Observable<TodoItem> {
-      return this.httpClient.post<TodoItem>(`${this.URL}/${item.id}`, item, this.httpOptions);
+    return this.httpClient.post<TodoItem>(`${this.URL}/`, item, this.httpOptions);
   }
 
   updateTask(item: TodoItem): Observable<void> {
-    const updatedItem = {id: item.id, name: item.name, status: !item.status};
-    return this.httpClient.put<void>(`${this.URL}/${item.id}`, updatedItem, this.httpOptions);
+    return this.httpClient.put<void>(`${this.URL}/${item.id}`, item, this.httpOptions);
     
   }
 
 
-  deleteItem(item: TodoItem) {
-    const index = this.todoList.indexOf(item);
-    this.todoList.splice(index, 1);
+  deleteTask(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.URL}/${id}`);
   }
 
 }

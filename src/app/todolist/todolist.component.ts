@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
       <li *ngFor="let todoItem of todoList">
         <app-todo-item [item]="todoItem"
                       (remove)="removeItem($event)"
-                      (update)="updateItem($event.item)"></app-todo-item>
+                      (update)="updateItem($event)"></app-todo-item>
       </li>
     </ul>
   </div>
@@ -39,18 +39,32 @@ export class TodolistComponent implements OnInit {
       (data: TodoItem) => {
         this.todoList.push(data)
       },
-      (error:any) =>  console.log(error)
+      (error: any) => console.log(error)
     );
-    
+
   }
 
   removeItem(item: TodoItem) {
-    this.todoListService.deleteItem(item);
+    this.todoListService.deleteTask(item.id).subscribe(
+      () => {
+        const index = this.todoList.indexOf(item);
+        this.todoList.splice(index, 1);
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
   }
 
-  updateItem(item: TodoItem) {
-    const updatedItem = {id: item.id, name: item.name, status: !item.status}
-    this.todoListService.updateTask(updatedItem);
+  updateItem(item: TodoItem): void {
+    const updated = {id: item.id, name: item.name, status: !item.status};
+    this.todoListService.updateTask(updated).subscribe(() => {
+      const index = this.todoList.indexOf(item);
+      this.todoList[index] = updated;
+    }
+      , (err: any) => {
+        console.log(err);
+      });
   }
 
 }
