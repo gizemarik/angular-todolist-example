@@ -3,12 +3,15 @@ import { Component, OnInit,Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-form-unit',
   template: `
- 
-  <input #inputElementRef
-         [value]="name"
-         (keyup.enter)="submitValue(inputElementRef.value)">
+ <div class="app-form-elements">
+  <input  class="todo-input"
+  #inputElementRef
+  [value]="name"
+  (keyup.enter)="submitValue(inputElementRef.value)">
 
-  <button (click)="submitValue(inputElementRef.value)">Save</button>
+  <button class="btn" (click)="submitValue(inputElementRef.value)">Add</button>
+ </div>
+
   `,
   styleUrls: ['./form-unit.component.scss']
 })

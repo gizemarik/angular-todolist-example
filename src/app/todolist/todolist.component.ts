@@ -4,12 +4,14 @@ import { TodoItem } from '../interfaces/todo-item';
 @Component({
   selector: 'app-todolist',
   template: `
-  <app-form-unit (submit)="addItem($event)"></app-form-unit>
-  <ul>
-    <li *ngFor="let todoItem of todoList">
-      <app-todo-item [item]="todoItem"></app-todo-item>
-    </li>
-  </ul>
+  <div class="todo-app">
+    <app-form-unit (submit)="addItem($event)"></app-form-unit>
+    <ul>
+      <li *ngFor="let todoItem of todoList">
+        <app-todo-item [item]="todoItem"></app-todo-item>
+      </li>
+    </ul>
+  </div>
   `,
   styleUrls: ['./todolist.component.scss']
 })

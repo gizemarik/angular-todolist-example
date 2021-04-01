@@ -4,7 +4,7 @@ import { TodoItem } from './interfaces/todo-item';
 @Component({
   selector: 'app-root',
   template: `
-    <h1>
+    <h1 class="app-title">
       Angular {{ title }}!
     </h1>
 
@@ -13,5 +13,5 @@ import { TodoItem } from './interfaces/todo-item';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ToDo List Sample';
+  title = 'ToDo List';
 }
