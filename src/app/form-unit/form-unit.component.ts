@@ -3,15 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-form-unit',
   template: `
-  <p>
-    input-button-unit works!
-    The name is: {{ name }}
-  </p>
+ 
+  <input #inputElementRef
+         [value]="name"
+         (keyup.enter)="changeName(inputElementRef.value)">
 
-  <input [value]="name" 
-        (keyup.enter)="changeName($event)">
-
-  <button>Save</button>
+  <button (click)="changeName(inputElementRef.value)">Save</button>
   `,
   styleUrls: ['./form-unit.component.scss']
 })
@@ -27,9 +24,9 @@ export class FormUnitComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changeName(event: Event): void {
-    const target = event.target as HTMLTextAreaElement;
-    this.name = target.value; 
+  changeName(newName: string){
+    this.name = newName; 
   }
+
 
 }
