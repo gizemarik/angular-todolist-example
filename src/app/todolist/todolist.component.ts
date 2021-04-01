@@ -9,7 +9,9 @@ import { TodoListService } from '../services/todo-list.service';
     <app-form-unit (submit)="addItem($event)"></app-form-unit>
     <ul>
       <li *ngFor="let todoItem of todoList">
-        <app-todo-item [item]="todoItem"></app-todo-item>
+        <app-todo-item [item]="todoItem"
+                      (remove)="removeItem($event)"
+                      (update)="updateItem($event.item, $event.changes)"></app-todo-item>
       </li>
     </ul>
   </div>
@@ -20,7 +22,7 @@ export class TodolistComponent implements OnInit {
 
   todoList!: TodoItem[];
 
-  constructor(private todoListService:TodoListService) { }
+  constructor(private todoListService: TodoListService) { }
 
   ngOnInit(): void {
     this.todoList = this.todoListService.getTodoList();
@@ -28,7 +30,15 @@ export class TodolistComponent implements OnInit {
 
   //All new added tasks have not completed status.
   addItem(value: string) {
-    this.todoListService.addItem({ name: value, status: false  });
-}
+    this.todoListService.addItem({id: Date.now(), name: value, status: false });
+  }
+
+  removeItem(item: TodoItem) {
+    this.todoListService.deleteItem(item);
+  }
+
+  updateItem(item: TodoItem, changes: any) {
+    this.todoListService.updateItem(item, changes);
+  }
 
 }

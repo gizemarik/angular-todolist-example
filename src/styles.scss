@@ -5,7 +5,20 @@ h1, p, ul, li {
   font: inherit;
   vertical-align: baseline;
 }
+.mat-form-field {
+  display: block !important;
+  margin-right: 5px;
+}
+.mat-form-field-infix {
+  border: none !important;
+}
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #3F51B5;
+}
+.mat-icon {
 
+  color: red;
+}
 body {
   font-size: 16px;
   line-height: 22px;
@@ -23,7 +36,7 @@ ol, ul {
   margin: 0 0 0 3px;
   border: none;
   border-radius: 5px;
-  font-size: 10px;
+  font-size: 15px;
   cursor: pointer;
 }
 
@@ -40,8 +53,10 @@ ol, ul {
 }
 
 .app-title {
-  font-size: 25px;
-  line-height: 30px;
-  margin-bottom: 20px;
+  font-size: 30px !important;
+  line-height: 30px !important;
+  margin-top: 20px !important;
   text-align: center;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

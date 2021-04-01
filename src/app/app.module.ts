@@ -5,18 +5,25 @@ import { AppComponent } from './app.component';
 import { FormUnitComponent } from './form-unit/form-unit.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodolistComponent } from './todolist/todolist.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ToDoMaterialModule} from './material-ui-modules';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormUnitComponent,
     TodoItemComponent,
-    TodolistComponent
+    TodolistComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    ToDoMaterialModule
   ],
-  providers: [TodoListService],
+  providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+  TodoListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
