@@ -28,7 +28,7 @@ export class TodolistComponent implements OnInit {
 
   //All new added tasks have not completed status.
   addItem(value: string) {
-    this.todoList.push({ name: value, status: false });
-  }
+    this.todoListService.addItem({ name: value, status: false  });
+}
 
 }
