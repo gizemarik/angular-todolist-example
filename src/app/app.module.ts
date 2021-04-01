@@ -3,11 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { FormUnitComponent } from './form-unit/form-unit.component';
+import { TodoItemComponent } from './todo-item/todo-item.component';
+import { TodolistComponent } from './todolist/todolist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormUnitComponent
+    FormUnitComponent,
+    TodoItemComponent,
+    TodolistComponent
   ],
   imports: [
     BrowserModule

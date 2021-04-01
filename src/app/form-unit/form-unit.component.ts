@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-form-unit',
@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
  
   <input #inputElementRef
          [value]="name"
-         (keyup.enter)="changeName(inputElementRef.value)">
+         (keyup.enter)="submitValue(inputElementRef.value)">
 
-  <button (click)="changeName(inputElementRef.value)">Save</button>
+  <button (click)="submitValue(inputElementRef.value)">Save</button>
   `,
   styleUrls: ['./form-unit.component.scss']
 })
@@ -16,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
 export class FormUnitComponent implements OnInit {
 
   name = 'First Task';
-
+  @Output() submit: EventEmitter<string> = new EventEmitter();
   constructor() { 
   }
 
@@ -24,8 +24,8 @@ export class FormUnitComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changeName(newName: string){
-    this.name = newName; 
+  submitValue(newName: string){
+    this.submit.emit(newName);
   }
 
 
