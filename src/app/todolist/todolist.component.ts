@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoItem } from '../interfaces/todo-item';
+import { TodoListService } from '../services/todo-list.service';
 
 @Component({
   selector: 'app-todolist',
@@ -17,24 +18,12 @@ import { TodoItem } from '../interfaces/todo-item';
 })
 export class TodolistComponent implements OnInit {
 
-  todoList: TodoItem[] = [
-    {
-      name: 'First Task',
-      status: true
-    },
-    {
-      name: 'Second Task',
-      status: false
-    },
-    {
-      name: 'Third Task',
-      status: false
-    },
-  ];
+  todoList!: TodoItem[];
 
-  constructor() { }
+  constructor(private todoListService:TodoListService) { }
 
   ngOnInit(): void {
+    this.todoList = this.todoListService.getTodoList();
   }
 
   //All new added tasks have not completed status.
