@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TodoItem } from '../interfaces/todo-item';
 import { StorageService } from './storage.service';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 const todoListStorageKey = 'Todo_List';
 
@@ -26,6 +27,7 @@ const defaultTodoList = [
 export class TodoListService {
 
   todoList: TodoItem[];
+  private readonly URL = 'http://localhost:3000/items';
 
   constructor(private storageService: StorageService) {
     this.todoList =
