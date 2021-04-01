@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, IterableDiffers, OnInit } from '@angular/core';
 import { TodoItem } from '../interfaces/todo-item';
 import { TodoListService } from '../services/todo-list.service';
 import { Observable } from 'rxjs';
@@ -29,12 +29,19 @@ export class TodolistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todoList = this.todoListService.getTodoList();
+    this.todoListService.getList()
+      .subscribe(data => this.todoList = data);
   }
 
   //All new added tasks have not completed status.
   addItem(value: string) {
-    this.todoListService.addItem({ id: Date.now(), name: value, status: false });
+    this.todoListService.postToList({ id: Date.now(), name: value, status: false }).subscribe(
+      (data: TodoItem) => {
+        this.todoList.push(data)
+      },
+      (error:any) =>  console.log(error)
+    );
+    
   }
 
   removeItem(item: TodoItem) {
