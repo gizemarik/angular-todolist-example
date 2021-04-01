@@ -1,12 +1,13 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { TodoItem } from '../interfaces/todo-item';
+import { TodoListService } from '../services/todo-list.service';
 
 @Component({
   selector: 'app-todo-item',
   template: `
   <div class="todo-item">
 
-    <mat-checkbox class="example-margin" (click)="completeItem()" [checked]="item.status">
+    <mat-checkbox class="example-margin" (click)="submitItem()" [checked]="item.status">
       <span class="todo-title" [ngClass]="{'todo-complete': item.status}">
         {{ item.name }}
       </span>
@@ -26,16 +27,23 @@ export class TodoItemComponent implements OnInit {
   @Output() remove: EventEmitter<TodoItem> = new EventEmitter();
   @Output() update: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private todoListService: TodoListService) { }
 
   ngOnInit(): void {
   }
 
-  completeItem() {
+  completeItem(): void {
     this.update.emit({
-      item: this.item,
-      changes: { status: !this.item.status }
+      item: this.item
     });
+  }
+
+  submitItem(): void {
+    this.todoListService.updateTask(this.item).subscribe(() => {
+      console.log('submit subscribtion')
+    }, (err: any) => {
+      console.log(err)
+    })
   }
 
   removeItem() {

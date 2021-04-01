@@ -3,7 +3,6 @@ import { TodoItem } from '../interfaces/todo-item';
 import { StorageService } from './storage.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 
 const todoListStorageKey = 'Todo_List';
 
@@ -32,28 +31,20 @@ export class TodoListService {
     return this.httpClient.get<TodoItem[]>(this.URL);
   }
 
-  postToList(item: TodoItem): Observable<TodoItem> {
-    console.log('servis içerisindeki post fonksiyonundayım');
-    console.log(item);
-      return this.httpClient.post<TodoItem>(this.URL, item, this.httpOptions);
+  addTask(item: TodoItem): Observable<TodoItem> {
+      return this.httpClient.post<TodoItem>(`${this.URL}/${item.id}`, item, this.httpOptions);
   }
 
-
-
-  updateItem(item: TodoItem, changes: any) {
-    const index = this.todoList.indexOf(item);
-    this.todoList[index] = { ...item, ...changes };
-    this.saveList();
+  updateTask(item: TodoItem): Observable<void> {
+    const updatedItem = {id: item.id, name: item.name, status: !item.status};
+    return this.httpClient.put<void>(`${this.URL}/${item.id}`, updatedItem, this.httpOptions);
+    
   }
 
-  saveList() {
-    this.storageService.setData(todoListStorageKey, this.todoList);
-  }
 
   deleteItem(item: TodoItem) {
     const index = this.todoList.indexOf(item);
     this.todoList.splice(index, 1);
-    this.saveList();
   }
 
 }

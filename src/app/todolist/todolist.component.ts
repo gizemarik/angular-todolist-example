@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
       <li *ngFor="let todoItem of todoList">
         <app-todo-item [item]="todoItem"
                       (remove)="removeItem($event)"
-                      (update)="updateItem($event.item, $event.changes)"></app-todo-item>
+                      (update)="updateItem($event.item)"></app-todo-item>
       </li>
     </ul>
   </div>
@@ -35,7 +35,7 @@ export class TodolistComponent implements OnInit {
 
   //All new added tasks have not completed status.
   addItem(value: string) {
-    this.todoListService.postToList({ id: Date.now(), name: value, status: false }).subscribe(
+    this.todoListService.addTask({ id: Date.now(), name: value, status: false }).subscribe(
       (data: TodoItem) => {
         this.todoList.push(data)
       },
@@ -48,8 +48,9 @@ export class TodolistComponent implements OnInit {
     this.todoListService.deleteItem(item);
   }
 
-  updateItem(item: TodoItem, changes: any) {
-    this.todoListService.updateItem(item, changes);
+  updateItem(item: TodoItem) {
+    const updatedItem = {id: item.id, name: item.name, status: !item.status}
+    this.todoListService.updateTask(updatedItem);
   }
 
 }
